@@ -42,7 +42,7 @@ if 'emoji_input' not in st.session_state:
 
 # Step 1: Introduce ReX if the chat history is empty
 if len(st.session_state.chat_history) == 0:
-    initial_prompt = "I am ReX, your assistant powered by Google Gemini. 😊 Ask me anything! I use emojis to be more interactive. 💬"
+    initial_prompt = "I am ReX, your assistant powered by Google Gemini. :) Ask me anything! I use emojis to be more interactive.0"
     
     # Send the initial prompt to the chat
     user_message, llm_response = llm_function(initial_prompt, chat)
