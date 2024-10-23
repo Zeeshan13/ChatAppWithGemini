@@ -1,10 +1,7 @@
-#pip install streamlit
-#pip install google-cloud-aiplatform
-
 import vertexai
 import streamlit as st
 from vertexai.preview import generative_models
-from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
+from vertexai.preview.generative_models import GenerativeModel
 
 # Set up the project
 project = "avid-folder-433719-s3"
@@ -21,18 +18,24 @@ with st.spinner('Loading AI model...'):
         model = GenerativeModel("gemini-pro", generation_config=config)
         chat = model.start_chat()
         st.success("Model loaded successfully!")
+        st.write("Checkpoint 1: Model loaded.")
     except Exception as e:
         st.error(f"Failed to load AI model: {e}")
         st.stop()  # Stop execution if the model fails to load
+
+# Debugging: Log the chat state
+st.write("Checkpoint 2: Ready to interact with model.")
 
 def llm_function(user_input, chat):
     """
     This function interacts with the LLM and returns the response.
     It also appends the user input and LLM response to the chat history.
     """
-    # Send the user input to the model and get the response
     try:
+        # Debugging: Log the input and chat interaction
+        st.write(f"Checkpoint 3: Sending message: {user_input}")
         response = chat.send_message(user_input)
+        st.write("Checkpoint 4: Received response.")
         return user_input, response.text
     except Exception as e:
         st.error(f"Error in LLM interaction: {e}")
@@ -48,7 +51,8 @@ if 'emoji_input' not in st.session_state:
 if len(st.session_state.chat_history) == 0:
     initial_prompt = "I am Xi, your assistant powered by Google Gemini. :) Ask me anything! I use emojis to be more interactive."
     
-    # Send the initial prompt to the chat
+    # Debugging: Log initial chat interaction
+    st.write("Checkpoint 5: Sending initial message.")
     user_message, llm_response = llm_function(initial_prompt, chat)
     
     # Add the initial introduction message to the chat history
