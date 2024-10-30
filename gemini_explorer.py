@@ -110,7 +110,7 @@ with st.form(key='input_form', clear_on_submit=True):
             st.session_state.emoji_input = ""
             
             # Rerun the app to refresh the chat history and scroll to the bottom
-            st.rerun()
+            #st.rerun()
 
 # JavaScript to scroll to the bottom of the page automatically
 scroll_script = """

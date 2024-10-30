@@ -23,7 +23,7 @@ def llm_function(user_input):
     response = chat.send_message(user_input)
     return user_input, response.text
 
-def fetch_background_image():
+#def fetch_background_image():
     """
     Fetches a background image from Bing and returns it as a URL.
     """
@@ -53,17 +53,17 @@ def display_emoji_tray():
                 st.session_state.emoji_input += emoji
 
 # Set up the background image
-background_image_url = fetch_background_image()
-st.markdown(f"""
-    <style>
-        .stApp {{
-            background: url({background_image_url});
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }}
-    </style>
-""", unsafe_allow_html=True)
+#background_image_url = fetch_background_image()
+#st.markdown(f"""
+#    <style>
+#        .stApp {{
+#            background: url({background_image_url});
+#            background-size: cover;
+#            background-attachment: fixed;
+#            background-repeat: no-repeat;
+#        }}
+#    </style>
+#""", unsafe_allow_html=True)
 
 # Initialize chat history and emoji input
 if 'chat_history' not in st.session_state:
@@ -74,7 +74,7 @@ if 'emoji_input' not in st.session_state:
 # Introduce ReX if the chat history is empty
 if len(st.session_state.chat_history) == 0:
     #initial_prompt = "I am ReX, your assistant powered by Google Gemini. 😊 Ask me anything! I use emojis to be more interactive. 💬"
-    initial_prompt = "I am Zee, a grad student learning AI"
+    initial_prompt = "I am Xi, your AI assistant powered by Google Gemini. 😊 Ask me anything"
     
     user_message, llm_response = llm_function(initial_prompt)
     st.session_state.chat_history.append({"role": "gemini", "content": llm_response})

@@ -10,20 +10,15 @@ from vertexai.preview.generative_models import GenerativeModel, Part, Content, C
 project = "avid-folder-433719-s3"
 vertexai.init(project=project)
 
-# Streamlit interface
-st.title("AI Chat App powered by Gemini")
-
-# Display loading spinner while model is being initialized
-with st.spinner('Loading AI model...'):
-    try:
-        # Load and start the model
-        config = generative_models.GenerationConfig(temperature=0.8)
-        model = GenerativeModel("gemini-pro", generation_config=config)
-        chat = model.start_chat()
-        st.success("Model loaded successfully!")
-    except Exception as e:
-        st.error(f"Failed to load AI model: {e}")
-        st.stop()  # Stop execution if the model fails to load
+# Load and start the model
+config = generative_models.GenerationConfig(
+    temperature=0.8
+)
+model = GenerativeModel(
+    "gemini-pro",
+    generation_config=config
+)
+chat = model.start_chat()
 
 def llm_function(user_input, chat):
     """
@@ -31,12 +26,13 @@ def llm_function(user_input, chat):
     It also appends the user input and LLM response to the chat history.
     """
     # Send the user input to the model and get the response
-    try:
-        response = chat.send_message(user_input)
-        return user_input, response.text
-    except Exception as e:
-        st.error(f"Error in LLM interaction: {e}")
-        return user_input, "An error occurred while processing your request."
+    response = chat.send_message(user_input)
+    
+    # Return both user input and model response
+    return user_input, response.text
+
+# Streamlit interface
+st.title("AI Chat App powered by Gemini")
 
 # Initialize chat history and emoji input
 if 'chat_history' not in st.session_state:
@@ -44,9 +40,9 @@ if 'chat_history' not in st.session_state:
 if 'emoji_input' not in st.session_state:
     st.session_state.emoji_input = ""
 
-# Step 1: Introduce Xi if the chat history is empty
+# Step 1: Introduce ReX if the chat history is empty
 if len(st.session_state.chat_history) == 0:
-    initial_prompt = "I am Xi, your assistant powered by Google Gemini. :) Ask me anything! I use emojis to be more interactive."
+    initial_prompt = "I am ReX, your assistant powered by Google Gemini. :) Ask me anything! I use emojis to be more interactive.0"
     
     # Send the initial prompt to the chat
     user_message, llm_response = llm_function(initial_prompt, chat)
@@ -114,7 +110,7 @@ with st.form(key='input_form', clear_on_submit=True):
             st.session_state.emoji_input = ""
             
             # Rerun the app to refresh the chat history and scroll to the bottom
-            st.experimental_rerun()
+            st.rerun()
 
 # JavaScript to scroll to the bottom of the page automatically
 scroll_script = """
