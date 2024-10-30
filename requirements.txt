@@ -3,4 +3,3 @@ Pillow==11.0.0
 Requests==2.32.3
 streamlit==1.38.0
 vertexai==1.65.0
-~treamlit==1.32.1
