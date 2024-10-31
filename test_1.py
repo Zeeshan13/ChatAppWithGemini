@@ -6,6 +6,8 @@ import streamlit as st
 from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
+
+
 # Set up the project
 project = "avid-folder-433719-s3"
 vertexai.init(project=project)
