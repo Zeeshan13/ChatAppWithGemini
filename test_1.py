@@ -8,18 +8,9 @@ from vertexai.preview.generative_models import GenerativeModel, Part, Content, C
 
 
 
-import json
-from google.oauth2 import service_account
-import streamlit as st
-
-# Load service account credentials from Streamlit secrets
-key_data = json.loads(st.secrets["GOOGLE_APPLICATION_CREDENTIALS"])
-credentials = service_account.Credentials.from_service_account_info(key_data)
-
-# Initialize Vertex AI with credentials and project ID
+# Set up the project
 project = "avid-folder-433719-s3"
-vertexai.init(project=project, credentials=credentials)
-
+vertexai.init(project=project)
 
 # Load and start the model
 config = generative_models.GenerationConfig(
