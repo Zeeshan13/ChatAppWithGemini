@@ -5,19 +5,13 @@ import vertexai
 import streamlit as st
 from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
-from google.oauth2 import service_account
 
 
 
+
+# Set up the project
 project = "avid-folder-433719-s3"
-
-vertexai.init(
-    project=project,
-    location="us-central1",
-    credentials=service_account.Credentials.from_service_account_file(
-        "D:/Radical X/Gemini Explorer/SourceCode/Authentication.json"
-    )
-)
+vertexai.init(project=project)
 
 
 # Load and start the model
