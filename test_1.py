@@ -7,25 +7,23 @@ from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
 
-import os
 import json
 
-# Load the credentials from the environment variable
-credentials_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+# Load the credentials from Streamlit secrets
+credentials_json = st.secrets["general"]["GOOGLE_APPLICATION_CREDENTIALS"]
 
-if credentials_json:
+# Load credentials as a dictionary
+try:
     credentials = json.loads(credentials_json)
-    # Use the credentials as needed in your app
-else:
-    st.error("Authentication credentials not found.")
+    # Now you can use `credentials` in your app
+except json.JSONDecodeError:
+    st.error("Error decoding JSON from the authentication credentials.")
+    credentials = None  # Set to None to handle the case if needed
 
-
-
-
-# Set up the project
-project = "avid-folder-433719-s3"
-vertexai.init(project=project)
-
+# Set up the project using the project_id from credentials
+if credentials:
+    project = credentials["project_id"]
+    vertexai.init(project=project)
 
 # Load and start the model
 config = generative_models.GenerationConfig(
