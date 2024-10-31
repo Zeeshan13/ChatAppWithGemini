@@ -6,6 +6,19 @@ import streamlit as st
 from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
+import os
+import json
+
+# Retrieve service account JSON from Streamlit secrets
+service_account_info = st.secrets["general"]["service_account_key"]
+
+# Write JSON data to a temporary file
+with open("temp_auth.json", "w") as f:
+    f.write(service_account_info)
+
+# Set environment variable for Google Cloud credentials
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "temp_auth.json"
+
 # Set up the project
 project = "avid-folder-433719-s3"
 vertexai.init(project=project)
