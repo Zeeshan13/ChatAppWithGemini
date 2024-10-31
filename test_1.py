@@ -121,4 +121,4 @@ with st.form(key='input_form', clear_on_submit=True):
 #        chatDiv.scrollTo(0, chatDiv.scrollHeight);
 #    </script>
 #"""
-st.markdown(scroll_script, unsafe_allow_html=True)
+#st.markdown(scroll_script, unsafe_allow_html=True)
