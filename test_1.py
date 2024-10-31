@@ -115,10 +115,10 @@ with st.form(key='input_form', clear_on_submit=True):
             st.rerun()
 
 # JavaScript to scroll to the bottom of the page automatically
-scroll_script = """
-    <script>
-        var chatDiv = window.parent.document.getElementsByClassName('main')[0];
-        chatDiv.scrollTo(0, chatDiv.scrollHeight);
-    </script>
-"""
+#scroll_script = """
+#    <script>
+#        var chatDiv = window.parent.document.getElementsByClassName('main')[0];
+#        chatDiv.scrollTo(0, chatDiv.scrollHeight);
+#    </script>
+#"""
 st.markdown(scroll_script, unsafe_allow_html=True)
