@@ -7,6 +7,7 @@ from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
 
+
 import json
 
 # Load the credentials from Streamlit secrets
@@ -15,25 +16,24 @@ credentials_json = st.secrets["general"]["GOOGLE_APPLICATION_CREDENTIALS"]
 # Load credentials as a dictionary
 try:
     credentials = json.loads(credentials_json)
-    # Now you can use `credentials` in your app
-except json.JSONDecodeError:
-    st.error("Error decoding JSON from the authentication credentials.")
-    credentials = None  # Set to None to handle the case if needed
-
-# Set up the project using the project_id from credentials
-if credentials:
     project = credentials["project_id"]
     vertexai.init(project=project)
 
-# Load and start the model
-config = generative_models.GenerationConfig(
-    temperature=0.8
-)
-model = GenerativeModel(
-    "gemini-pro",
-    generation_config=config
-)
-chat = model.start_chat()
+    # Load and start the model
+    config = generative_models.GenerationConfig(
+        temperature=0.8
+    )
+    model = GenerativeModel(
+        "gemini-pro",
+        generation_config=config
+    )
+    chat = model.start_chat()
+except json.JSONDecodeError:
+    st.error("Error decoding JSON from the authentication credentials.")
+    chat = None  # Set chat to None if initialization fails
+except Exception as e:
+    st.error(f"An error occurred while initializing the model: {e}")
+    chat = None  # Set chat to None if initialization fails
 
 def llm_function(user_input, chat):
     """
