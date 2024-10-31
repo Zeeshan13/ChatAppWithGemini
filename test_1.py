@@ -7,6 +7,19 @@ from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
 
+import os
+import json
+
+# Load the credentials from the environment variable
+credentials_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+
+if credentials_json:
+    credentials = json.loads(credentials_json)
+    # Use the credentials as needed in your app
+else:
+    st.error("Authentication credentials not found.")
+
+
 
 
 # Set up the project
