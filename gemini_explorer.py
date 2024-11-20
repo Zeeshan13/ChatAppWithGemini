@@ -7,12 +7,12 @@ from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, Part, Content, ChatSession
 
 # Set up the project
-project = "avid-folder-433719-s3"
+project = "chatapp-442003"
 vertexai.init(project=project)
 
 # Load and start the model
 config = generative_models.GenerationConfig(
-    temperature=0.8
+    temperature=0.5
 )
 model = GenerativeModel(
     "gemini-pro",
@@ -32,7 +32,7 @@ def llm_function(user_input, chat):
     return user_input, response.text
 
 # Streamlit interface
-st.title("AI Chat App powered by Gemini")
+st.title("AI Chat App")
 
 # Initialize chat history and emoji input
 if 'chat_history' not in st.session_state:
@@ -42,7 +42,7 @@ if 'emoji_input' not in st.session_state:
 
 # Step 1: Introduce Xi if the chat history is empty
 if len(st.session_state.chat_history) == 0:
-    initial_prompt = "I am Xi, your assistant powered by Google Gemini. :) Ask me anything! I use emojis to be more interactive.0"
+    initial_prompt = "I am your assistant powered by Google Gemini. :) Ask me anything!"
     
     # Send the initial prompt to the chat
     user_message, llm_response = llm_function(initial_prompt, chat)
@@ -54,7 +54,8 @@ if len(st.session_state.chat_history) == 0:
 def calculate_height(message):
     # Estimate the height of the text area based on the length of the content
     lines = len(message.split('\n'))
-    return min(400, max(50, lines * 20))  # Adjust as per your preference
+    return min(400, max(68, lines * 20))  # Ensure the minimum height is 68px
+
 
 # Display chat history
 for i, message in enumerate(st.session_state.chat_history):
@@ -110,7 +111,7 @@ with st.form(key='input_form', clear_on_submit=True):
             st.session_state.emoji_input = ""
             
             # Rerun the app to refresh the chat history and scroll to the bottom
-            #st.rerun()
+            st.rerun()
 
 # JavaScript to scroll to the bottom of the page automatically
 scroll_script = """
